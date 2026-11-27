@@ -93,6 +93,7 @@ export function makeCtx(page) {
     root: page.site ? siteRoot(page.site) : '',
     params: page.params || {},
     hint: page.hint || {},
+    state: page.state || {},
     r,
     type: page.type,
     // Title from the address: "/thread/is-toast-soup" -> "is toast soup"
@@ -118,7 +119,7 @@ export function typeOf(type) {
 // Built-in generator. Returns a full page record.
 export function generate(url, hint = {}) {
   const base = resolve(url, hint);
-  const page = { ...base, hint: { t: hint.t ? String(hint.t).slice(0, 120) : '' } };
+  const page = { ...base, hint: { t: hint.t ? String(hint.t).slice(0, 120) : '', from: hint.from ? String(hint.from).slice(0, 60) : '' } };
   const mod = typeOf(page.type);
   const ctx = makeCtx(page);
   page.content = mod.gen(ctx);

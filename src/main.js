@@ -1,6 +1,7 @@
 import './styles/browser.css';
 import './styles/widgets.css';
 import './styles/portal.css';
+import './styles/sites.css';
 import { Browser } from './browser/browser.js';
 
 const app = document.getElementById('app');

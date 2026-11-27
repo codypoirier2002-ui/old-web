@@ -10,6 +10,7 @@ export function lnk(url, text, o = {}) {
   if (o.site) a += ` data-site="${esc(o.site)}"`;
   if (o.kind) a += ` data-kind="${esc(o.kind)}"`;
   if (o.t) a += ` data-t="${esc(o.t)}"`;
+  if (o.from) a += ` data-from="${esc(o.from)}"`;
   if (o.cls) a += ` class="${o.cls}"`;
   if (o.style) a += ` style="${o.style}"`;
   return `${a}>${o.html != null ? o.html : esc(text)}</a>`;

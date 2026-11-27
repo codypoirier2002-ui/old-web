@@ -24,6 +24,8 @@ const SPECIAL_NAMES = {
   games: 'Arcadeville', chat: 'Chatterbox', howto: 'HowToTown',
 };
 
+const SPECIAL_TOPICS = { portal: 'the web', news: 'news', search: 'the web', video: 'videos', mail: 'email', games: 'games', chat: 'chatting', howto: 'how-to guides' };
+
 // Endings that link builders always use, checked first.
 const SUFFIX = [
   ['trickshot', /(trickshots|montages)$/],
@@ -119,7 +121,7 @@ export function segment(str) {
   return best[n].words;
 }
 
-const AFFIX = new Set('www fans fan 4ever forever zone world central club hq the my online net web page site talk forum forums board boards bbs tube tv blog blogs diary clan squad team crew gaming tips guide guides howto how to news daily times lovers lover luv love i 4 2 u place spot land planet paradise shrine fanclub fansite trickshots trickshot montage montages chat chats lounge arcade games game play video videos vid vids clips clip www inc co official home homepage city house community central express xx xxx mania nation network members member of and ur 4u'.split(' '));
+const AFFIX = new Set('www fans fan 4ever forever zone world central club hq the my online net web page site talk forum forums board boards bbs tube tv blog blogs diary clan squad team crew gaming tips guide guides howto how to news daily times lovers lover luv love i 4 2 u place spot land planet paradise shrine fanclub fansite trickshots trickshot trick tricks shot shots montage montages fanzone starz 4evr chat chats lounge arcade games game play video videos vid vids clips clip www inc co official home homepage city house community central express xx xxx mania nation network members member of and ur 4u'.split(' '));
 
 export function topicFromWords(words) {
   const keep = words.filter((w) => !AFFIX.has(w) && !/^\d+$/.test(w));
@@ -169,7 +171,7 @@ export function getSite(key, hint = {}) {
   const kind = classify(key, hint.kind);
   const r = new Rng('site:' + key);
   let name = SPECIAL_NAMES[kind] && SPECIAL[key] ? SPECIAL_NAMES[kind] : (hint.site ? String(hint.site).slice(0, 60) : nameFromKey(key, kind));
-  let topic = hint.topic ? String(hint.topic).slice(0, 60) : '';
+  let topic = SPECIAL[key] ? SPECIAL_TOPICS[kind] : hint.topic ? String(hint.topic).slice(0, 60) : '';
   if (!topic) {
     const [host, user] = key.split('/~');
     const words = user ? segment(user) : host.endsWith('.' + HOSTS.blogs) ? [] : segment(hostCore(host).replace(/ /g, ''));

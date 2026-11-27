@@ -103,7 +103,7 @@ export class Browser {
         this.sound('click');
         this.go(a.dataset.go, {
           t: a.dataset.t || (a.textContent || '').trim().slice(0, 120),
-          topic: a.dataset.topic, site: a.dataset.site, kind: a.dataset.kind,
+          topic: a.dataset.topic, site: a.dataset.site, kind: a.dataset.kind, from: a.dataset.from,
         });
       }
     });
