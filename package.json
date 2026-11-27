@@ -1,0 +1,33 @@
+{
+  "name": "old-web",
+  "version": "1.0.0",
+  "description": "The Old Web: an endless fake internet from around 2012, as a phone-first browser game.",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite build && vite preview --port 5173",
+    "build": "vite build",
+    "build:pages": "VITE_NO_AI=1 vite build",
+    "preview": "vite preview",
+    "test": "node scripts/test-gen.mjs 4000 && node scripts/test-ai.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codypoirier2002-ui/old-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codypoirier2002-ui/old-web/issues"
+  },
+  "homepage": "https://github.com/codypoirier2002-ui/old-web#readme",
+  "devDependencies": {
+    "vite": "^6.4.6"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
+    "zod": "^4.6.7"
+  },
+  "private": true,
+  "type": "module"
+}

@@ -1,0 +1,76 @@
+/* The old computer starting up. */
+.boot {
+  position: fixed; inset: 0; z-index: 1000;
+  background: #000; color: #c0c0c0;
+  display: flex; align-items: center; justify-content: center;
+  font: 14px/1.35 "Courier New", Courier, monospace;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  transition: opacity .4s;
+  -webkit-user-select: none; user-select: none;
+}
+.boot.out { opacity: 0; pointer-events: none; }
+.boot-skip { position: absolute; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); background: none; border: 1px solid #555; color: #aaa; font: 13px Verdana, sans-serif; padding: 6px 12px; border-radius: 3px; cursor: pointer; }
+.boot.desk .boot-skip { color: #fff; border-color: rgba(255, 255, 255, .6); }
+.boot-power { text-align: center; color: #9a9a9a; font-family: Verdana, sans-serif; }
+.boot-power p { margin: 16px 0 4px; font-size: 15px; color: #ddd; }
+.boot-power small { font-size: 11px; }
+.pwr { width: 92px; height: 92px; border-radius: 50%; border: 2px solid #555; color: #3dff3d; cursor: pointer; background: radial-gradient(circle at 40% 30%, #3a3a3a, #111 70%); box-shadow: 0 0 0 6px #1a1a1a, 0 0 18px rgba(61, 255, 61, .25); }
+.pwr svg { width: 46px; height: 46px; filter: drop-shadow(0 0 4px #3dff3d); }
+.pwr:active { transform: scale(.96); }
+.bios { width: 100%; max-width: 640px; align-self: flex-start; margin-top: 4vh; }
+.bios-top { color: #fff; margin-bottom: 14px; }
+.bios-top b { color: #55aaff; }
+.bios-out { margin: 0; font: inherit; white-space: pre-wrap; word-break: break-word; }
+.os { text-align: center; font-family: "Trebuchet MS", Verdana, sans-serif; color: #fff; }
+.os-logo { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.hex { width: 60px; height: 52px; background: conic-gradient(from 30deg, #ff5f5f, #ffd25f, #5fff8a, #5fc8ff, #b05fff, #ff5f5f); clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+.os-name { font: italic 34px "Trebuchet MS", Arial, sans-serif; letter-spacing: -1px; }
+.os-name b { color: #8fd3ff; font-weight: bold; }
+.os-name i { font-size: 22px; color: #ffd25f; }
+.os-bar { position: relative; width: 170px; height: 14px; margin: 26px auto 12px; border: 1px solid #666; border-radius: 3px; overflow: hidden; }
+.os-bar i { position: absolute; top: 2px; bottom: 2px; width: 30px; background: linear-gradient(90deg, transparent, #3d8bff 30%, #3d8bff 70%, transparent); animation: osbar 1.3s linear infinite; }
+@keyframes osbar { from { transform: translateX(-40px); } to { transform: translateX(180px); } }
+.os small { color: #999; font-size: 12px; }
+.boot.desk { background: radial-gradient(ellipse at 30% 20%, #4f9ae6, #1f5fa8 55%, #0f3566); }
+.dial { width: 100%; max-width: 360px; background: #ece9d8; color: #111; border: 1px solid #0a246a; border-radius: 6px 6px 2px 2px; box-shadow: 4px 8px 22px rgba(0, 0, 0, .45); font: 13px Tahoma, Verdana, sans-serif; overflow: hidden; }
+.dial-t { padding: 6px 9px; color: #fff; font-weight: bold; background: linear-gradient(#3d73bd, #1c3d6e); }
+.dial-b { padding: 14px; }
+.dial-pic { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.dial-pic .pc { width: 44px; height: 34px; border: 3px solid #555; border-radius: 3px; background: linear-gradient(#7fb8ff, #2a6fd0); box-shadow: 0 8px 0 -3px #777; }
+.dial-pic .globe2 { width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #c9f0ff, #3a9be6 50%, #1b5aa3); }
+.dial-pic .dots { flex: 1; display: flex; justify-content: center; gap: 8px; }
+.dial-pic .dots i { width: 8px; height: 8px; border-radius: 50%; background: #2a6fd0; animation: blink 1s steps(1) infinite; }
+.dial-pic .dots i:nth-child(2) { animation-delay: .33s; }
+.dial-pic .dots i:nth-child(3) { animation-delay: .66s; }
+.dial-s { min-height: 18px; font-weight: bold; }
+.dial-bar { height: 16px; margin: 10px 0; border: 1px solid #888; background: #fff; padding: 1px; }
+.dial-bar i { display: block; height: 100%; background: repeating-linear-gradient(90deg, #2a8a2a 0 9px, transparent 9px 11px); transform-origin: left; transform: scaleX(0); transition: transform .35s; }
+.dial-f { font-size: 11px; color: #555; }
+.boot.off { background: #000; }
+.bye { text-align: center; color: #ff9f1a; font: 20px/1.5 "Courier New", monospace; }
+.bye p { margin: 6px 0; }
+.bye .gl { margin-top: 20px; }
+
+/* hidden things */
+.pg a.hid { text-decoration: none; color: inherit; cursor: default; }
+.rock { display: flex; align-items: center; justify-content: center; width: 24px; padding: 0 !important; cursor: pointer; }
+.rock i { width: 15px; height: 11px; border-radius: 48% 52% 45% 55% / 60% 55% 45% 40%; background: radial-gradient(circle at 35% 30%, #c9c3b8, #8b8478 60%, #5c564c); box-shadow: inset -1px -1px 1px rgba(0, 0, 0, .3); }
+.rock-big { width: 120px; height: 86px; margin: 10px auto; border-radius: 48% 52% 45% 55% / 60% 55% 45% 40%; background: radial-gradient(circle at 35% 30%, #d7d1c6, #8b8478 60%, #5c564c); box-shadow: 0 8px 10px -6px rgba(0, 0, 0, .5); }
+.egg-disco { animation: disco 1.2s linear infinite; }
+@keyframes disco { 0% { background: #ff4fd8; } 25% { background: #4fd8ff; } 50% { background: #d8ff4f; } 75% { background: #ffb04f; } 100% { background: #ff4fd8; } }
+.egg-snow { position: absolute; inset: 0; pointer-events: none !important; overflow: hidden; }
+.egg-snow i { position: absolute; top: -12px; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 3px #9cf; animation: snowfall linear infinite; }
+@keyframes snowfall { to { transform: translate3d(30px, 110vh, 0); } }
+.win.max .bmbar { display: none; }
+.win.max .titlebar { display: none; }
+
+/* NetSkipper Classic Edition */
+.skin-classic { --chrome-top: #000080; --chrome-bot: #1084d0; }
+.skin-classic .titlebar { background: linear-gradient(90deg, #000080, #1084d0); text-shadow: none; }
+.skin-classic .toolbar, .skin-classic .bmbar, .skin-classic .status { background: #c0c0c0; border-color: #808080; }
+.skin-classic .tb { border-radius: 0; background: #c0c0c0; color: #000; border: 2px outset #fff; box-shadow: none; }
+.skin-classic .tb svg { filter: none; }
+.skin-classic .addr { border-radius: 0; border: 2px inset #fff; }
+.skin-classic .addr .go { background: #c0c0c0; color: #000; }
+.skin-classic .wbtn { border-radius: 0; background: #c0c0c0; color: #000; border: 2px outset #fff; box-shadow: none; }
+.skin-classic .throb { border-radius: 0; background: conic-gradient(#f00 0 25%, #0a0 0 50%, #00f 0 75%, #fc0 0); }
