@@ -13,6 +13,7 @@ import { inbox, email } from './mail.js';
 import { chatLobby, chatRoom } from './chat.js';
 import { gamesHome, game } from './games.js';
 import { product } from './shop.js';
+import { prize, clubhouse, homeSweetHome } from './eggs.js';
 
 export const TYPES = {
   portal, portalInfo, personal, personalSub, notFound, noServer, about,
@@ -27,4 +28,5 @@ export const TYPES = {
   chatLobby, chatRoom,
   gamesHome, game,
   product,
+  prize, clubhouse, homeSweetHome,
 };

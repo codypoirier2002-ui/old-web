@@ -2,7 +2,7 @@
 import { LEX } from '../core/lex.js';
 import { fmt, deslug, cap, duration } from '../core/util.js';
 import { esc, lnk, gl, each, paras } from '../render/html.js';
-import { counter, avatar, marquee, blink } from '../render/widgets.js';
+import { counter, marquee, blink } from '../render/widgets.js';
 import { player, mountPlayers } from '../render/player.js';
 import { commentsBlock, mountComments } from '../render/comments.js';
 import { theme, vars } from '../render/theme.js';
@@ -138,4 +138,3 @@ export const trickshot = {
   },
 };
 
-void avatar;

@@ -8,6 +8,7 @@ import { titleCase, deslug } from '../core/util.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
 import { counter, construction, pic, marquee, hrRainbow, blink, badges } from '../render/widgets.js';
 import { songTitle, bandName } from '../core/names.js';
+import { HIDDEN_ABOUT } from './eggs.js';
 
 // ---------- personal homepage ----------
 const ABOUT = [
@@ -128,6 +129,7 @@ export const about = {
   title: (c) => `about:${c.name}`,
   render(c) {
     if (c.name === 'blank') return '<div class="pg blank"></div>';
+    if (c.name === 'hidden' || c.name === 'secret' || c.name === 'eggs') return HIDDEN_ABOUT;
     if (c.name === 'netskipper' || c.name === 'version' || c.name === 'credits') {
       return `<div class="pg aboutpg"><div class="ab-box">
   <div class="ab-logo"><span class="throb big"></span><b>NetSkipper</b> <i>4.2</i></div>

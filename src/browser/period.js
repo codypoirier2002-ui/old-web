@@ -9,6 +9,7 @@ import { page as P } from '../core/links.js';
 import { productName, miniGameName } from '../core/names.js';
 import { LEX } from '../core/lex.js';
 import { scene } from '../render/widgets.js';
+import { searchEggs } from './eggs.js';
 
 const NO_POP = new Set(['about', 'notFound', 'noServer', 'product', 'game', 'chatRoom', 'searchHome']);
 
@@ -45,6 +46,7 @@ function musicPlayer(el, api, onLeave) {
   };
   btn.addEventListener('click', () => {
     if (song) { stop(); return; }
+    if (!api.settings().sound) { api.toast('Sound is turned off. Turn it on in the menu.'); return; }
     document.querySelectorAll('.mp.on').forEach((m) => m.querySelector('.mp-btn').click());
     song = playSong(title + artist, () => bars.forEach((b) => { b.style.transform = `scaleY(${(0.2 + Math.random() * 0.8).toFixed(2)})`; }));
     if (!song) { api.toast('Your browser cannot play music. Imagine a catchy tune!'); return; }
@@ -62,7 +64,10 @@ export function popup(api, r, kind = r.pick(POP_KINDS)) {
   if (overlay.querySelector('.popwin')) return;
   const product = productName(r);
   let title, body, go, cta, t;
-  if (kind === 'game') {
+  if (kind === 'prize') {
+    title = 'CONGRATULATIONS!!!'; t = 'Totally Real Prizes'; go = 'http://www.totallyrealprizes.biz/'; cta = 'CLAIM MY PRIZE';
+    body = `<b class="pw-big">You are the 1,000,000th visitor!!!</b><p>Click below to claim your FREE prize! This is not a joke!!!</p>`;
+  } else if (kind === 'game') {
     const g = miniGameName(r);
     title = 'FREE GAME!!!'; t = g; go = P.game(g); cta = 'PLAY NOW';
     body = `<b class="pw-big">${esc(g)}</b><p>The most addictive game on the internet! 100% FREE! No download!</p>`;
@@ -125,7 +130,7 @@ function maybePopup(page, api, later) {
       bar.addEventListener('click', (e) => { bar.remove(); if (!e.target.closest('button')) popup(api, r); });
       api.overlay.appendChild(bar);
       api.sound('pop');
-    } else popup(api, r);
+    } else popup(api, r, !kv.get('petrock', null) && r.chance(0.18) ? 'prize' : undefined);
   }, 1500 + r.int(0, 2500));
 }
 
@@ -189,6 +194,7 @@ export function decorate(pe, page, ctx, api) {
   if (page.type === 'fan' || page.type === 'guestbook' || page.type === 'fanSub') cleanups.push(trail(root, later));
   if (page.type === 'personal' && v === 1 && r.chance(0.25)) later(() => api.alert(`Welcome to my homepage!!! You are visitor number ${(+(root.querySelector('.ctr')?.dataset.n || 1000) + 1).toLocaleString('en-US')}!`, 'Message from webpage'), 900);
   maybePopup(page, api, later);
+  searchEggs(root, page, api);
 
   return () => { stopSong(); cleanups.forEach((f) => { try { f(); } catch { /* ignore */ } }); };
 }

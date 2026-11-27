@@ -1,11 +1,11 @@
 // MailMole webmail: an inbox full of chain letters, forwards and "prizes".
 import { LEX } from '../core/lex.js';
 import { HOSTS } from '../core/url.js';
-import { fmt, titleCase, deslug, cap, daysAgo, fmtShort, fmtDate, fmtTime, slug } from '../core/util.js';
+import { titleCase, deslug, cap, daysAgo, fmtShort, fmtDate, fmtTime, slug } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { esc, lnk, gl, each, paras } from '../render/html.js';
 import { page as P } from '../core/links.js';
-import { kit, list, username, productName, personName } from './common.js';
+import { kit, list, personName } from './common.js';
 import { miniGameName } from '../core/names.js';
 import { kv } from '../browser/storage.js';
 
@@ -70,7 +70,6 @@ function kindOfSubject(s) {
 
 export const inbox = {
   gen(ctx) {
-    const k = mailKit(ctx);
     const r = new Rng('mailbox'); // everyone's inbox starts the same, it's "yours"
     const kk = mailKit({ ...ctx, r });
     const order = ['chain', 'friend', 'prize', 'joke', 'mom', 'forum', 'prince', 'newsletter', 'game', 'chain', 'party', 'friend', 'joke', 'newsletter', 'chain'];
@@ -84,7 +83,6 @@ export const inbox = {
       const d = daysAgo(Math.floor(i * 1.7));
       return { from, subject, date: i === 0 ? fmtTime(d) : fmtShort(d), unread: i < 6 };
     });
-    void k;
     return { folder, emails, used: r.int(2, 9), spam: r.int(120, 400) };
   },
   title: () => 'MailMole - Inbox',
@@ -210,4 +208,3 @@ export const email = {
   },
 };
 
-void fmt; void productName; void username;

@@ -29,7 +29,7 @@ export class Browser {
   constructor(root, svc = {}) {
     this.root = root;
     this.svc = svc;
-    this.settings = { speed: 'dsl', sound: true, boot: 'full', ...kv.get('settings', {}) };
+    this.settings = { speed: 'dsl', sound: true, ...kv.get('settings', {}) };
     this.session = kv.get('session', null) || { stack: [], idx: -1 };
     if (!Array.isArray(this.session.stack)) this.session = { stack: [], idx: -1 };
     this.bookmarks = kv.get('bookmarks', null) || DEFAULT_BOOKMARKS.slice();
@@ -395,6 +395,7 @@ export class Browser {
   }
 
   toast(msg, ms = 2600) {
+    this.el.vwrap.querySelectorAll('.toast').forEach((x) => x.remove());
     const t = document.createElement('div');
     t.className = 'toast';
     t.textContent = msg;

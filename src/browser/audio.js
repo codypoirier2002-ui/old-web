@@ -14,7 +14,7 @@ export function audio() {
     try {
       ctx = new AC();
       master = ctx.createGain();
-      master.gain.value = 0.6;
+      master.gain.value = muted ? 0 : 0.6;
       master.connect(ctx.destination);
     } catch { ctx = null; return null; }
   }

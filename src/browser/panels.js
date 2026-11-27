@@ -124,7 +124,7 @@ export function openMenu(b) {
     <button data-m="speed">Connection: <b>${SPEEDS[s.speed]?.label || 'DSL'}</b></button>
     <button data-m="sound">Sound: <b>${s.sound ? 'On' : 'Off'}</b></button>
     <button data-m="popups">Pop-up blocker: <b>${s.popups === 'block' ? 'On' : 'Off'}</b></button>
-    <button data-m="boot">Startup screen: <b>${{ full: 'Full', quick: 'Quick', off: 'Off' }[s.boot] || 'Full'}</b></button>
+    <button data-m="boot">Startup screen: <b>${{ full: 'Full', quick: 'Quick', off: 'Off' }[s.boot] || 'Auto'}</b></button>
     ${aiRow}
     <hr>
     <button data-m="about">About NetSkipper</button>
@@ -147,7 +147,7 @@ export function openMenu(b) {
     else if (k === 'speed') { const ks = Object.keys(SPEEDS); s.speed = ks[(ks.indexOf(s.speed) + 1) % ks.length]; b.saveSettings(); reopen(); }
     else if (k === 'sound') { s.sound = !s.sound; b.saveSettings(); b.svc.onSound?.(s.sound); reopen(); }
     else if (k === 'popups') { s.popups = s.popups === 'block' ? 'allow' : 'block'; b.saveSettings(); reopen(); }
-    else if (k === 'boot') { s.boot = { full: 'quick', quick: 'off', off: 'full' }[s.boot] || 'quick'; b.saveSettings(); reopen(); }
+    else if (k === 'boot') { s.boot = { full: 'quick', quick: 'off', off: 'full' }[s.boot] || 'full'; b.saveSettings(); reopen(); }
     else if (k === 'ai') { s.ai = s.ai === false; b.saveSettings(); reopen(); }
     else if (k === 'clear') {
       close(b);

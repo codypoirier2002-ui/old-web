@@ -441,3 +441,10 @@
 .sh-foot { font-size: 11px; color: #555; margin-top: 12px; }
 .ps-song { text-align: center; }
 @media (max-width: 520px) { .sh-name { font-size: 28px; padding-right: 44px; } .sh-burst { width: 64px; height: 64px; font-size: 10px; right: -6px; top: -10px; } }
+
+/* Older Safari without aspect-ratio: classic padding trick */
+@supports not (aspect-ratio: 1 / 1) {
+  .vd-th, .vp-screen { height: 0; padding-bottom: 56.25%; }
+  .ga-th { height: 0; padding-bottom: 75%; }
+  .vd-th > .scene, .ga-th > .scene, .vp-screen > .scene { position: absolute; left: 0; top: 0; }
+}

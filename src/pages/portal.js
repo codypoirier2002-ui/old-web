@@ -189,7 +189,7 @@ export function render(c) {
     <p>${gl('Make StartBlaster! your homepage', { act: 'homepage', cls: 'silver' })}</p>
     <p>${lnk(`http://${HOSTS.portal}/about`, 'About Us')} | ${lnk(`http://${HOSTS.portal}/advertise`, 'Advertise')} | ${lnk(`http://${HOSTS.portal}/privacy`, 'Privacy Policy')} | ${lnk(`http://${HOSTS.freehost}/`, 'Free Homepages')}</p>
     <div>You are visitor number ${counter(c.visitors)}</div>
-    <p class="fine">&copy; 2012 StartBlaster Inc. All rights reserved. Best viewed at 1024x768.</p>
+    <p class="fine">&copy; 2012 StartBlaster Inc. All rights reserved. Best viewed at 1024x768${lnk('http://www.hidden-clubhouse.net/', '.', { cls: 'hid' })}</p>
   </div>
   </div>
 </div>`;

@@ -2,7 +2,7 @@
 // sites about whatever you searched for.
 import { LEX } from '../core/lex.js';
 import { HOSTS, searchUrl } from '../core/url.js';
-import { fmt, titleCase, cap, slug } from '../core/util.js';
+import { fmt, titleCase, slug } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { esc, lnk, gl, each } from '../render/html.js';
 import { site as siteLink, page as P } from '../core/links.js';
@@ -135,7 +135,7 @@ export const results = {
   <div class="rv sx-stats">Results <b>${(c.page - 1) * 10 + 1} - ${c.page * 10}</b> of about <b>${fmt(c.total)}</b> for <b>${esc(c.q)}</b>. (${c.secs} seconds)</div>
   ${c.didYouMean ? `<div class="rv sx-dym">Did you mean: ${lnk(searchUrl(c.didYouMean), '', { html: `<b><i>${esc(c.didYouMean)}</i></b>` })}</div>` : ''}
   <div class="rv sx-ads"><small>Sponsored Links</small>${each(c.ads, (a) => `<div class="sx-ad"><a data-act="adlink" data-product="${esc(a.product)}">${esc(a.product)} - Official Site</a><br>${esc(a.line)}<br><span class="sx-url">www.${esc(slug(a.product).replace(/-/g, ''))}.com</span></div>`)}</div>
-  <ol class="sx-res">${each(c.results, (it, i) => {
+  <ol class="sx-res">${/clubhouse|hidden|secret/i.test(c.q) ? `<li class="rv">${lnk('http://www.hidden-clubhouse.net/', 'Members Only - The Hidden Clubhouse', { cls: 'sx-t' })}<div class="sx-s">Shhh. You did not find this from a search engine. <b>Members only.</b></div><div class="sx-url">www.hidden-clubhouse.net/</div></li>` : ''}${each(c.results, (it, i) => {
     const u = resultUrl(it, i + (c.page - 1) * 10, c.topic);
     return `<li class="rv">${lnk(u.url, it.title, { topic: u.topic, site: u.site, kind: u.kind, cls: 'sx-t', t: it.title })}<div class="sx-s">${bold(it.snippet, c.topic)}</div><div class="sx-url">${esc(u.url.replace(/^http:\/\//, '').slice(0, 60))} - <span class="sx-c">Cached</span> - <span class="sx-c">Similar</span></div></li>`;
   })}</ol>
@@ -146,4 +146,3 @@ export const results = {
   },
 };
 
-void cap;

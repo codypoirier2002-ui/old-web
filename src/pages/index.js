@@ -6,6 +6,7 @@ import { getSite, siteKeyOf, relPath, siteRoot } from '../core/site.js';
 import { Rng } from '../core/rng.js';
 import { deslug } from '../core/util.js';
 import { TYPES } from './types.js';
+import { EGG_HOSTS } from './eggs.js';
 
 export const GEN_VERSION = 1;
 
@@ -77,6 +78,8 @@ export function route(site, rel, p) {
       return nf;
     case 'shop':
       return rel === '/' ? { type: 'product', params: {} } : nf;
+    case 'egg':
+      return rel === '/' && EGG_HOSTS[p.host] ? { type: EGG_HOSTS[p.host], params: {} } : nf;
     default:
       if (rel === '/') return { type: 'personal', params: {} };
       if (parts.length === 1) return { type: 'personalSub', params: { slug: first } };

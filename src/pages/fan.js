@@ -1,6 +1,6 @@
 // Glittery fan pages on the free host: main page, guestbook, links, subpages.
 import { LEX } from '../core/lex.js';
-import { fmt, titleCase, deslug } from '../core/util.js';
+import { titleCase, deslug } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
 import { counter, construction, pic, marquee, hrRainbow, blink, newBadge, badges } from '../render/widgets.js';
@@ -190,4 +190,3 @@ export const fanSub = {
   },
 };
 
-void fmt;

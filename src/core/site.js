@@ -18,13 +18,17 @@ const SPECIAL = {
   [HOSTS.games]: 'games',
   [HOSTS.chat]: 'chat',
   [HOSTS.howto]: 'howto',
+  'www.totallyrealprizes.biz': 'egg',
+  'www.hidden-clubhouse.net': 'egg',
+  localhost: 'egg',
+  '127.0.0.1': 'egg',
 };
 const SPECIAL_NAMES = {
   portal: 'StartBlaster!', news: 'StartBlaster News', search: 'Searchasaurus', video: 'Vidoodle', mail: 'MailMole',
   games: 'Arcadeville', chat: 'Chatterbox', howto: 'HowToTown',
 };
 
-const SPECIAL_TOPICS = { portal: 'the web', news: 'news', search: 'the web', video: 'videos', mail: 'email', games: 'games', chat: 'chatting', howto: 'how-to guides' };
+const SPECIAL_TOPICS = { portal: 'the web', news: 'news', search: 'the web', video: 'videos', mail: 'email', games: 'games', chat: 'chatting', howto: 'how-to guides', egg: 'surprises' };
 
 // Endings that link builders always use, checked first.
 const SUFFIX = [
