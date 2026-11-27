@@ -89,7 +89,16 @@ export class Browser {
       this.svc.closeSuggest?.();
       if (v.trim()) this.go(v, {}, { typed: true });
     });
-    e.addr.addEventListener('focus', () => { setTimeout(() => e.addr.select(), 0); });
+    // Select the whole address on focus, like real browsers, and keep the
+    // first mouse/touch release from collapsing the selection.
+    let fresh = false;
+    e.addr.addEventListener('focus', () => {
+      fresh = true;
+      e.addr.select();
+      setTimeout(() => { try { e.addr.setSelectionRange(0, e.addr.value.length); } catch { /* ignore */ } }, 0);
+    });
+    e.addr.addEventListener('mouseup', (ev) => { if (fresh) { ev.preventDefault(); fresh = false; } });
+    e.addr.addEventListener('keydown', () => { fresh = false; });
     e.addr.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { e.addr.value = this.current ? this.current.url : ''; e.addr.blur(); } });
     e.addr.addEventListener('input', () => this.svc.suggest?.(this, e.addr.value));
     e.addr.addEventListener('blur', () => setTimeout(() => this.svc.closeSuggest?.(), 200));

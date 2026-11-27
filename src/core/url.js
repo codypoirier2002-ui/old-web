@@ -38,7 +38,7 @@ export function canon(url) {
   try { u = new URL(s); } catch { return null; }
   if (!/^https?:$/.test(u.protocol)) return null;
   const host = u.hostname.toLowerCase().replace(/\.$/, '');
-  if (!host) return null;
+  if (!host || !/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/.test(host)) return null;
   const port = u.port && u.port !== '80' && u.port !== '443' ? ':' + u.port : '';
   const params = [...u.searchParams.entries()].filter(([k]) => k);
   const search = params.length ? '?' + params.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v).replace(/%20/g, '+')}`).join('&') : '';
