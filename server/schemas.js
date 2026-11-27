@@ -49,6 +49,7 @@ export const SCHEMAS = {
   chatRoom: z.object({ topic: S(), users: strs(), script: z.array(z.object({ type: z.enum(['msg', 'join', 'leave', 'action']), user: S(), text: S() })) }),
   gamesHome: z.object({ games: z.array(z.object({ name: S(), desc: S() })) }),
   game: z.object({ desc: S(), more: strs(), comments }),
+  product: z.object({ tagline: S(), pitch: S(), features: strs(), testimonials: z.array(z.object({ name: S(), from: S(), quote: S() })), bonus: S() }),
   personal: z.object({ heading: S(), about: S(), facts: strs(), links: z.array(z.object({ name: S(), topic: S(), kind: z.enum(['fan', 'blog', 'forum', 'personal', 'clan']) })) }),
 };
 
@@ -78,5 +79,6 @@ export const GUIDE = {
   chatRoom: 'A chat room called "{title}" on Chatterbox. A room topic line, 8 usernames, and a script of 50 chat lines in order (mostly msg, a few join, leave and action lines; action text is what they do, like "does a little dance"; leave text is a quit reason; join text is empty). Friendly, silly, lots of "lol", brb, random questions. No personal information.',
   gamesHome: 'The front page of the free games site Arcadeville: 12 invented mini-game names with a one-line description each. Names should hint at simple games: catching things, whacking things, a hungry snake, memory match, dodging, a flying cave game, an idle clicker, brick bashing.',
   game: 'The page for the free online game "{title}". A short hype description, 6 names of other games on the site, and 7 player comments bragging about high scores.',
+  product: 'An over-the-top infomercial landing page for the invented product "{title}". A tagline, a pitch (2 short paragraphs), 5 silly features, 3 glowing customer testimonials (invented names and towns) and a "But wait, there\'s more!" bonus offer. Obviously silly, never a real scam.',
   personal: 'A personal homepage on a free host, made by a regular person in 2012 ({site}). A heading, an about-me paragraph, 4 fun facts and 4 favorite links (site name, topic, kind).',
 };

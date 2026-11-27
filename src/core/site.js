@@ -7,7 +7,7 @@ import { Rng, hash } from './rng.js';
 import { plural, titleCase } from './util.js';
 import { kv } from '../browser/storage.js';
 
-export const KINDS = ['portal', 'news', 'search', 'video', 'mail', 'games', 'chat', 'howto', 'forum', 'fan', 'clan', 'trickshot', 'blog', 'personal'];
+export const KINDS = ['portal', 'news', 'search', 'video', 'mail', 'games', 'chat', 'howto', 'forum', 'fan', 'clan', 'trickshot', 'blog', 'personal', 'shop'];
 
 const SPECIAL = {
   [HOSTS.portal]: 'portal',
@@ -28,6 +28,7 @@ const SPECIAL_TOPICS = { portal: 'the web', news: 'news', search: 'the web', vid
 
 // Endings that link builders always use, checked first.
 const SUFFIX = [
+  ['shop', /(official|shop|store|direct|deals)$/],
   ['trickshot', /(trickshots|montages)$/],
   ['clan', /^clan|clan$/],
   ['fan', /(4ever|4evr|fans|fanzone|fanclub|shrine|lovers|starz)$/],
@@ -86,7 +87,7 @@ export function classify(key, hintKind) {
   for (const [kind, re] of RULES) if (re.test(core)) return kind;
   return new Rng('kind:' + key).weighted({ fan: 3, blog: 3, forum: 2, personal: 3, howto: 1, clan: 1, video: 1 });
 }
-const HINTABLE = new Set(['fan', 'forum', 'blog', 'clan', 'trickshot', 'howto', 'personal', 'video', 'games', 'chat', 'news']);
+const HINTABLE = new Set(['fan', 'forum', 'blog', 'clan', 'trickshot', 'howto', 'personal', 'video', 'games', 'chat', 'news', 'shop']);
 
 // ---------- word splitting for typed addresses ----------
 let DICT = null;

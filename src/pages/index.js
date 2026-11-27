@@ -75,6 +75,8 @@ export function route(site, rel, p) {
       if (first === 'category' && tail) return { type: 'gamesHome', params: { cat: tail } };
       if (first === 'play' && tail) return { type: 'game', params: { slug: tail } };
       return nf;
+    case 'shop':
+      return rel === '/' ? { type: 'product', params: {} } : nf;
     default:
       if (rel === '/') return { type: 'personal', params: {} };
       if (parts.length === 1) return { type: 'personalSub', params: { slug: first } };

@@ -105,6 +105,7 @@ export const page = {
   board: (siteRoot, name) => `${siteRoot.replace(/\/$/, '')}/forum/${slug(name)}`,
   post: (siteRoot, title, month = 11) => `${siteRoot.replace(/\/$/, '')}/2012/${String(month).padStart(2, '0')}/${slug(title)}.html`,
   sub: (siteRoot, name) => `${siteRoot.replace(/\/$/, '')}/${slug(name)}.html`,
+  product: (name) => `http://www.${squash(name).slice(0, 30)}-official.com/`,
   montage: (siteRoot, title) => `${siteRoot.replace(/\/$/, '')}/${slug(title)}`,
 };
 

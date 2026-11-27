@@ -12,6 +12,7 @@ import { searchHome, results } from './search.js';
 import { inbox, email } from './mail.js';
 import { chatLobby, chatRoom } from './chat.js';
 import { gamesHome, game } from './games.js';
+import { product } from './shop.js';
 
 export const TYPES = {
   portal, portalInfo, personal, personalSub, notFound, noServer, about,
@@ -25,4 +26,5 @@ export const TYPES = {
   inbox, email,
   chatLobby, chatRoom,
   gamesHome, game,
+  product,
 };

@@ -4,7 +4,7 @@ import { HOSTS, HOME } from '../core/url.js';
 import { fmt, titleCase, deslug, cap, daysAgo, fmtDate, MONTHS, fmtTime } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
-import { counter, avatar, pic, banner } from '../render/widgets.js';
+import { counter, avatar, pic, banner, badges } from '../render/widgets.js';
 import { commentsBlock, mountComments } from '../render/comments.js';
 import { theme, vars } from '../render/theme.js';
 import { site as siteLink, fanTopic, page as P, linkTo } from '../core/links.js';
@@ -59,7 +59,7 @@ function shell(ctx, c, inner) {
     <div class="rv bl-card"><h3>My Blog List</h3><ul>${each(c.blogroll, (b) => `<li>${siteA(linkTo('blog', b.topic, b.name))}</li>`)}</ul></div>
     <div class="rv bl-card"><h3>Labels</h3><p class="bl-labels">${c.labels.map(esc).join(', ')}</p></div>
     <div class="rv bl-card bl-song" data-song="${esc(c.song.title)}|${esc(c.song.artist)}"></div>
-    <div class="rv bl-card">${counter(c.visitors, 'odo')}<br><small>visitors since 2010</small></div>
+    <div class="rv bl-card">${counter(c.visitors, 'odo')}<br><small>visitors since 2010</small>${badges(new Rng('bdg' + ctx.site.key), 2)}</div>
   </div></div>
   <div class="rv bl-foot">Powered by Blogaroo &middot; Template by ${esc(c.author)}</div>
 </div>`;

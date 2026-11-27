@@ -5,7 +5,7 @@ import { esc } from './html.js';
 
 export function counter(n, style = 'odo') {
   const digits = String(Math.max(0, Math.floor(n))).padStart(6, '0');
-  return `<span class="ctr ctr-${style}" data-act="counter" title="hit counter">${[...digits].map((d) => `<i>${d}</i>`).join('')}</span>`;
+  return `<span class="ctr ctr-${style}" data-act="counter" data-n="${Math.max(0, Math.floor(n))}" title="hit counter">${[...digits].map((d) => `<i>${d}</i>`).join('')}</span>`;
 }
 
 export function marquee(text, o = {}) {
@@ -106,4 +106,14 @@ export function stars(n, max = 5) {
 export function banner(r, product, line) {
   const style = r.int(0, 3);
   return `<div class="ad-468 ad-s${style}" data-act="ad" data-product="${esc(product)}"><span class="ad-tag">Advertisement</span><b>${esc(product)}</b><span class="ad-line">${esc(line)}</span><span class="ad-cta">CLICK HERE!</span></div>`;
+}
+
+// 88x31 buttons, the badges of honor of 2012 homepages.
+const BADGES = [
+  ['NetSkipper', 'NOW!', '#1d3f72', '#ffe26a'], ['Made with', 'NOTEPAD', '#fff', '#000'], ['Powered by', 'HAMSTERS', '#c33', '#fff'],
+  ['Free Hosting', 'BubbleHost', '#2a9d8f', '#fff'], ['Valid', 'HTML 3.2*', '#666', '#ff0'], ['Best viewed', '800x600', '#000', '#0f0'],
+  ['Get', 'Searchasaurus', '#43a047', '#fff'], ['I <3', 'THE WEB', '#e91e63', '#fff'], ['Anti-', 'BOREDOM', '#7b1fa2', '#fff'], ['Y2K', 'COMPLIANT', '#0d47a1', '#fff'],
+];
+export function badges(r, n = 4) {
+  return `<div class="badges">${r.sample(BADGES, n).map(([a, b, bg, fg]) => `<span class="b88" style="background:${bg};color:${fg}"><small>${esc(a)}</small><b>${esc(b)}</b></span>`).join('')}</div>`;
 }

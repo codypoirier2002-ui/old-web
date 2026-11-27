@@ -12,5 +12,6 @@ export const AI_TYPES = [
   'chatRoom',
   'gamesHome', 'game',
   'personal',
+  'product',
 ];
 export const MODEL = 'claude-haiku-5-5';

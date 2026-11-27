@@ -3,7 +3,7 @@ import { LEX } from '../core/lex.js';
 import { fmt, titleCase, deslug } from '../core/util.js';
 import { Rng } from '../core/rng.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
-import { counter, construction, pic, marquee, hrRainbow, blink, newBadge } from '../render/widgets.js';
+import { counter, construction, pic, marquee, hrRainbow, blink, newBadge, badges } from '../render/widgets.js';
 import { theme, vars } from '../render/theme.js';
 import { site as siteLink, fanTopic, page as P, linkTo } from '../core/links.js';
 import { kit, list, username, songTitle, bandName, dateOnly } from './common.js';
@@ -53,7 +53,7 @@ function shell(ctx, inner, c) {
   return `<div class="pg fan bgp-${th.pat}" style="${vars(th)}">
   <div class="fan-wrap">${inner}
   <div class="rv fan-nav">${lnk(ctx.root, 'Home')} | ${lnk(P.sub(ctx.root, 'pics'), 'Pics')} | ${lnk(P.sub(ctx.root, 'facts'), 'Facts')} | ${lnk(P.sub(ctx.root, 'quiz'), 'Quiz')} | ${lnk(ctx.root + 'guestbook.html', 'Guestbook')} | ${lnk(ctx.root + 'links.html', 'Links')}</div>
-  <div class="rv fan-foot">${c && c.visitors ? `You are visitor #${counter(c.visitors, ctx.r.pick(['odo', 'lcd', 'led']))}<br>` : ''}<small>This site is best viewed at 800x600 with ur speakers ON!!<br>&copy; 2012 ${esc(c && c.owner ? c.owner : ctx.site.name)}. Do not steal my graphics!!!</small></div>
+  <div class="rv fan-foot">${c && c.visitors ? `You are visitor #${counter(c.visitors, ctx.r.pick(['odo', 'lcd', 'led']))}<br>` : ''}${badges(ctx.r.fork('badges'))}<small>This site is best viewed at 800x600 with ur speakers ON!!<br>&copy; 2012 ${esc(c && c.owner ? c.owner : ctx.site.name)}. Do not steal my graphics!!!</small></div>
   </div></div>`;
 }
 

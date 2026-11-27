@@ -25,6 +25,7 @@ const SAMPLE = {
   results: 'http://www.searchasaurus.com/search?q=rubber+ducks', inbox: 'http://www.mailmole.com/', email: 'http://www.mailmole.com/read/1-fw-hi',
   chatRoom: 'http://www.chatterboxchat.net/room/the-lobby', gamesHome: 'http://www.arcadeville.net/', game: 'http://www.arcadeville.net/play/pickle-catcher',
   personal: 'http://members.bubblehost.net/~garypickleworth/',
+  product: 'http://www.speedboost3000-official.com/',
 };
 
 let fails = 0;

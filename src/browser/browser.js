@@ -374,7 +374,7 @@ export class Browser {
     this.el.reload.innerHTML = on ? ICON.stop : ICON.reload;
     this.el.reload.setAttribute('aria-label', on ? 'Stop' : 'Reload');
   }
-  status(m) { this.el.msg.textContent = m; }
+  status(m) { this.el.msg.textContent = m; delete this.el.msg.dataset.sc; }
   progress(x) {
     const v = Math.max(0, Math.min(1, x));
     this.el.bar.style.transform = `scaleX(${v})`;

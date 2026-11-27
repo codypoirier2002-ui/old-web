@@ -6,7 +6,8 @@ import { HOME, searchUrl, registrable } from '../core/url.js';
 import { deBrand } from '../core/site.js';
 import { titleCase, deslug } from '../core/util.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
-import { counter, construction, pic, marquee, hrRainbow, blink } from '../render/widgets.js';
+import { counter, construction, pic, marquee, hrRainbow, blink, badges } from '../render/widgets.js';
+import { songTitle, bandName } from '../core/names.js';
 
 // ---------- personal homepage ----------
 const ABOUT = [
@@ -33,6 +34,7 @@ export const personal = {
       updated: `${r.int(1, 11)}/${r.int(1, 28)}/2012`,
       visitors: r.big(40, 9000),
       bg: r.pick(['#c0c0c0', '#008080', '#000080', '#ffffcc', '#ccffcc', '#e0e0ff', '#000']),
+      song: r.chance(0.5) ? { title: songTitle(r), artist: bandName(r) } : { title: '', artist: '' },
     };
   },
   title: (c) => c.heading.replace(/!$/, ''),
@@ -51,7 +53,8 @@ export const personal = {
     <ul class="rv">${each(c.links, (l) => `<li>${siteA(linkTo(l.kind, l.topic, l.name))}</li>`)}</ul>
     <p class="rv">${lnk(ctx.root + 'pics.html', 'My Pictures')} | ${lnk(ctx.root + 'about.html', 'More About Me')} | ${lnk(ctx.root + 'links.html', 'Cool Links')} | <a data-act="mailto">Email Me!</a></p>
     ${hrRainbow()}
-    <div class="rv ps-foot">You are visitor # ${counter(c.visitors, 'lcd')}<br><small>This page was made with Notepad. Best viewed with your eyes.</small><br>${lnk(HOME, 'Back to StartBlaster!')}</div>
+    ${c.song && c.song.title ? `<div class="rv ps-song" data-song="${esc(c.song.title)}|${esc(c.song.artist)}"></div>` : ''}
+    <div class="rv ps-foot">You are visitor # ${counter(c.visitors, 'lcd')}${badges(ctx.r.fork('b'), 3)}<small>This page was made with Notepad. Best viewed with your eyes.</small><br>${lnk(HOME, 'Back to StartBlaster!')}</div>
   </div>
 </div>`;
   },
