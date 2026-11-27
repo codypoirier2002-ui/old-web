@@ -42,7 +42,6 @@ export const gamesHome = {
     const games = list(12, (i) => { const rr = r.fork('g' + i + cat); const g = gameFor(rr); return { name: g.name, desc: say(rr.pick(DESC)), plays: rr.big(500, 9000000), rating: rr.int(3, 5), cat: CAT_OF[g.mech], tag: rr.pick(['', '', 'NEW!', 'HOT!']) }; });
     return {
       cat, games,
-      featured: games[0],
       top: list(5, (i) => ({ user: username(r.fork('tp' + i)), score: r.fork('s' + i).big(1000, 99999) })).sort((a, b) => b.score - a.score),
       online: r.big(1000, 30000),
     };
@@ -50,10 +49,11 @@ export const gamesHome = {
   title: (c) => (c.cat ? `${c.cat} Games - Arcadeville` : 'Arcadeville - 100% FREE Online Games!'),
   render(c) {
     const root = `http://${HOSTS.games}/`;
+    const f = c.games[0];
     return `<div class="pg games"><div class="ga-wrap">
   <div class="rv ga-head"><span class="ga-logo">${lnk(root, '', { html: 'Arcade<b>ville</b>' })}</span><span class="ga-tag">100% FREE Online Games! &middot; ${fmt(c.online)} playing now</span></div>
   <div class="rv ga-cats">${each(CATS, (x) => lnk(`${root}category/${x.toLowerCase()}`, x, { cls: c.cat === x ? 'on' : '' }))}</div>
-  ${c.cat ? `<h2 class="rv ga-h">${esc(c.cat)} Games</h2>` : `<div class="rv ga-feat">${lnk(P.game(c.featured.name), '', { html: `<span class="ga-th big">${scene(c.featured.name, { caption: c.featured.name })}</span>` })}<div><small>FEATURED GAME</small><h2>${lnk(P.game(c.featured.name), c.featured.name)}</h2><p>${esc(c.featured.desc)}</p>${gl('PLAY NOW!', { go: P.game(c.featured.name), cls: 'orange' })}</div></div>`}
+  ${c.cat ? `<h2 class="rv ga-h">${esc(c.cat)} Games</h2>` : `<div class="rv ga-feat">${lnk(P.game(f.name), '', { html: `<span class="ga-th big">${scene(f.name, { caption: f.name })}</span>` })}<div><small>FEATURED GAME</small><h2>${lnk(P.game(f.name), f.name)}</h2><p>${esc(f.desc)}</p>${gl('PLAY NOW!', { go: P.game(f.name), cls: 'orange' })}</div></div>`}
   <div class="rv ga-grid">${each(c.games, (g) => `<div class="ga-card">${lnk(P.game(g.name), '', { html: `<span class="ga-th">${scene(g.name)}${g.tag ? `<span class="ga-badge">${g.tag}</span>` : ''}</span>` })}${lnk(P.game(g.name), g.name, { cls: 'ga-n' })}<small>${stars(g.rating)} &middot; ${fmt(g.plays)} plays</small></div>`)}</div>
   <div class="rv ga-box"><h3>Top Players This Week</h3><ol>${each(c.top, (t) => `<li><b>${esc(t.user)}</b> - ${fmt(t.score)}</li>`)}</ol></div>
   <div class="rv ga-foot">&copy; 2012 Arcadeville &middot; Games require a working mouse, finger or nose</div>

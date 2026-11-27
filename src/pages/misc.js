@@ -1,7 +1,7 @@
 // Small built-in pages: personal homepages, errors, about: pages.
 import { LEX } from '../core/lex.js';
 import { sayer } from '../core/grammar.js';
-import { site as siteLink, fanTopic } from '../core/links.js';
+import { site as siteLink, fanTopic, linkTo } from '../core/links.js';
 import { HOME, searchUrl, registrable } from '../core/url.js';
 import { deBrand } from '../core/site.js';
 import { titleCase, deslug } from '../core/util.js';
@@ -28,7 +28,7 @@ export const personal = {
       facts: r.sample(FACTS, 4).map((f) => say(f)),
       links: Array.from({ length: 4 }, (_, i) => {
         const s = siteLink(r.fork('l' + i).pick(['fan', 'blog', 'forum', 'personal', 'clan']), r.fork('lk' + i), fanTopic(r.fork('t' + i)));
-        return { name: s.name, url: s.url, topic: s.topic, kind: s.kind, site: s.site || '' };
+        return { name: s.name, topic: s.topic, kind: s.kind };
       }),
       updated: `${r.int(1, 11)}/${r.int(1, 28)}/2012`,
       visitors: r.big(40, 9000),
@@ -48,7 +48,7 @@ export const personal = {
     <h2 class="rv">Fun Facts About Me</h2>
     <ul class="rv">${each(c.facts, (f) => `<li>${esc(f)}</li>`)}</ul>
     <h2 class="rv">My Favorite Links</h2>
-    <ul class="rv">${each(c.links, (l) => `<li>${siteA(l)}</li>`)}</ul>
+    <ul class="rv">${each(c.links, (l) => `<li>${siteA(linkTo(l.kind, l.topic, l.name))}</li>`)}</ul>
     <p class="rv">${lnk(ctx.root + 'pics.html', 'My Pictures')} | ${lnk(ctx.root + 'about.html', 'More About Me')} | ${lnk(ctx.root + 'links.html', 'Cool Links')} | <a data-act="mailto">Email Me!</a></p>
     ${hrRainbow()}
     <div class="rv ps-foot">You are visitor # ${counter(c.visitors, 'lcd')}<br><small>This page was made with Notepad. Best viewed with your eyes.</small><br>${lnk(HOME, 'Back to StartBlaster!')}</div>

@@ -5,7 +5,7 @@ import { Rng } from '../core/rng.js';
 import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
 import { counter, construction, pic, marquee, hrRainbow, blink, newBadge } from '../render/widgets.js';
 import { theme, vars } from '../render/theme.js';
-import { site as siteLink, fanTopic, page as P } from '../core/links.js';
+import { site as siteLink, fanTopic, page as P, linkTo } from '../core/links.js';
 import { kit, list, username, songTitle, bandName, dateOnly } from './common.js';
 import { kv } from '../browser/storage.js';
 
@@ -143,18 +143,18 @@ export const links = {
     const { r } = fanKit(ctx);
     const friends = list(8, (i) => {
       const s = siteLink('fan', r.fork('f' + i), fanTopic(r.fork('t' + i)));
-      return { name: s.name, url: s.url, topic: s.topic, kind: s.kind, site: s.site || '', blurb: r.fork('b' + i).pick(['soooo cool', 'my best friend\'s site!!', 'great pics', 'lots of info', 'check it out!!', 'very sparkly', 'NEW!!']) };
+      return { name: s.name, topic: s.topic, blurb: r.fork('b' + i).pick(['soooo cool', 'my best friend\'s site!!', 'great pics', 'lots of info', 'check it out!!', 'very sparkly', 'NEW!!']) };
     });
     return { ring: `The ${titleCase(ctx.site.topic)} Webring`, friends };
   },
   title: (c, ctx) => `Links - ${ctx.site.name}`,
   render(c, ctx) {
-    const ring = c.friends;
+    const ring = c.friends.map((f) => ({ ...linkTo('fan', f.topic, f.name), blurb: f.blurb }));
     return shell(ctx, `
   <div class="rv fan-top">${sparkles(ctx.url, 5)}<h1 class="fan-h">~*~ Cool Links ~*~</h1></div>
   <div class="rv fan-box"><h2>My Friends' Sites</h2><ul>${each(ring, (f) => `<li>${siteA(f)} - ${esc(f.blurb)}</li>`)}</ul></div>
   <div class="rv fan-box"><h2>Link 2 Me!!</h2><p>Copy this code and put it on ur site:</p><textarea class="code" rows="3" readonly>&lt;a href="${esc(ctx.url.replace(/links\.html$/, ''))}"&gt;&lt;img src="mybutton.gif"&gt;&lt;/a&gt;</textarea></div>
-  <div class="rv webring"><b>${esc(c.ring)}</b><br>${siteA(ring[0], '<< Prev', { html: '&lt;&lt; Prev' })} | ${siteA(ring[3], 'Random')} | ${siteA(ring[1], 'Next >>', { html: 'Next &gt;&gt;' })}</div>`, { visitors: 0 });
+  <div class="rv webring"><b>${esc(c.ring)}</b><br>${siteA(ring[0], '<< Prev', { html: '&lt;&lt; Prev' })} | ${siteA(ring[3 % ring.length], 'Random')} | ${siteA(ring[1 % ring.length], 'Next >>', { html: 'Next &gt;&gt;' })}</div>`, { visitors: 0 });
   },
 };
 

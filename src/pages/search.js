@@ -122,7 +122,7 @@ export const results = {
       total: r.big(1200, 90000000),
       secs: (r.int(9, 48) / 100).toFixed(2),
       didYouMean: r.chance(0.2) ? k.say(['{q} for {animal:s}', '{q} pictures', 'cute {q}', '{q} (the good kind)'], { q }) : '',
-      ads: list(r.int(1, 2), (i) => { const rr = r.fork('ad' + i); const pr = productName(rr); return { title: `${pr} - Official Site`, line: k.say(rr.pick(['The #1 choice for {q} lovers. Free shipping!', 'Why pay more? {q} accessories from $9.99', 'As seen on TV! Order now.']), { q }), product: pr }; }),
+      ads: list(r.int(1, 2), (i) => { const rr = r.fork('ad' + i); const pr = productName(rr); return { product: pr, line: k.say(rr.pick(['The #1 choice for {q} lovers. Free shipping!', 'Why pay more? {q} accessories from $9.99', 'As seen on TV! Order now.']), { q }) }; }),
       results: resultsFor(q, page, r),
       related: [`${q} pictures`, `${q} for sale`, `how to draw ${q}`, `${q} forum`, `${q} games`, `funny ${q}`],
     };
@@ -134,7 +134,7 @@ export const results = {
   <div class="rv sx-bar">${lnk(`http://${HOSTS.search}/`, '', { html: logo(false) })}<form class="sx-form sm" data-search="${esc(searchUrl(''))}"><input name="q" type="search" value="${esc(c.q)}" autocomplete="off" autocapitalize="off" enterkeyhint="search" aria-label="Search">${gl('Search', { type: 'submit', cls: 'sm silver' })}</form></div>
   <div class="rv sx-stats">Results <b>${(c.page - 1) * 10 + 1} - ${c.page * 10}</b> of about <b>${fmt(c.total)}</b> for <b>${esc(c.q)}</b>. (${c.secs} seconds)</div>
   ${c.didYouMean ? `<div class="rv sx-dym">Did you mean: ${lnk(searchUrl(c.didYouMean), '', { html: `<b><i>${esc(c.didYouMean)}</i></b>` })}</div>` : ''}
-  <div class="rv sx-ads"><small>Sponsored Links</small>${each(c.ads, (a) => `<div class="sx-ad"><a data-act="adlink" data-product="${esc(a.product)}">${esc(a.title)}</a><br>${esc(a.line)}<br><span class="sx-url">www.${esc(slug(a.product).replace(/-/g, ''))}.com</span></div>`)}</div>
+  <div class="rv sx-ads"><small>Sponsored Links</small>${each(c.ads, (a) => `<div class="sx-ad"><a data-act="adlink" data-product="${esc(a.product)}">${esc(a.product)} - Official Site</a><br>${esc(a.line)}<br><span class="sx-url">www.${esc(slug(a.product).replace(/-/g, ''))}.com</span></div>`)}</div>
   <ol class="sx-res">${each(c.results, (it, i) => {
     const u = resultUrl(it, i + (c.page - 1) * 10, c.topic);
     return `<li class="rv">${lnk(u.url, it.title, { topic: u.topic, site: u.site, kind: u.kind, cls: 'sx-t', t: it.title })}<div class="sx-s">${bold(it.snippet, c.topic)}</div><div class="sx-url">${esc(u.url.replace(/^http:\/\//, '').slice(0, 60))} - <span class="sx-c">Cached</span> - <span class="sx-c">Similar</span></div></li>`;

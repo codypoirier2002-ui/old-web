@@ -75,8 +75,8 @@ export const chatRoom = {
       const rr = r.fork('l' + i);
       const user = rr.pick(users);
       const roll = rr.next();
-      if (roll < 0.06) script.push({ type: 'join', user: username(rr) });
-      else if (roll < 0.1) script.push({ type: 'leave', user });
+      if (roll < 0.06) script.push({ type: 'join', user: username(rr), text: '' });
+      else if (roll < 0.1) script.push({ type: 'leave', user, text: rr.pick(['Quit', 'brb', 'dinner', 'Connection reset by peer', 'gtg']) });
       else if (roll < 0.17) script.push({ type: 'action', user, text: say(rr.pick(ACTIONS), { user: rr.pick(users) }) });
       else script.push({ type: 'msg', user, text: say(extra.length && rr.chance(0.4) ? rr.pick(extra) : rr.pick(LINES), { user: rr.pick(users) }) });
     }
@@ -109,7 +109,7 @@ export const chatRoom = {
       if (line.type === 'msg') div.innerHTML = `<span class="ch-t">[${time()}]</span> <b style="color:${color(line.user)}">&lt;${esc(line.user)}&gt;</b> ${esc(line.text)}`;
       else if (line.type === 'action') div.innerHTML = `<span class="ch-t">[${time()}]</span> <i>* ${esc(line.user)} ${esc(line.text)}</i>`;
       else if (line.type === 'join') div.innerHTML = `<span class="ch-t">[${time()}]</span> <span class="ch-sys">*** ${esc(line.user)} has joined ${esc(c.name)}</span>`;
-      else if (line.type === 'leave') div.innerHTML = `<span class="ch-t">[${time()}]</span> <span class="ch-sys">*** ${esc(line.user)} has left (${esc(line.reason || 'Quit')})</span>`;
+      else if (line.type === 'leave') div.innerHTML = `<span class="ch-t">[${time()}]</span> <span class="ch-sys">*** ${esc(line.user)} has left (${esc(line.text || 'Quit')})</span>`;
       else div.innerHTML = `<span class="ch-sys">${esc(line.text)}</span>`;
       const atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
       log.appendChild(div);

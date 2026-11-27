@@ -6,3 +6,4 @@ dist
 .oldweb-usage.json
 *.log
 .DS_Store
+.oldweb-cache.json

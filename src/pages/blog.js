@@ -7,7 +7,7 @@ import { esc, lnk, siteA, gl, each, paras } from '../render/html.js';
 import { counter, avatar, pic, banner } from '../render/widgets.js';
 import { commentsBlock, mountComments } from '../render/comments.js';
 import { theme, vars } from '../render/theme.js';
-import { site as siteLink, fanTopic, page as P } from '../core/links.js';
+import { site as siteLink, fanTopic, page as P, linkTo } from '../core/links.js';
 import { kit, list, username, songTitle, bandName, makeComments, productName, personName } from './common.js';
 
 const POST_T = [
@@ -56,7 +56,7 @@ function shell(ctx, c, inner) {
     <div class="rv bl-card"><h3>About Me</h3>${avatar(c.author, 64)}<p><b>${esc(c.author)}</b><br>${esc(c.about)}</p></div>
     <div class="rv bl-card"><h3>Followers (${fmt(c.followers)})</h3><div class="bl-fol">${list(8, (i) => avatar(c.author + i, 28)).join('')}</div>${gl('Follow', { act: 'follow', cls: 'sm orange' })}</div>
     <div class="rv bl-card"><h3>Blog Archive</h3><ul class="bl-arch"><li>&#9660; 2012 (${c.archive.reduce((a, b) => a + b.n, 0)})<ul>${each(c.archive, (m) => `<li>&#9658; ${esc(m.month)} (${m.n})</li>`)}</ul></li><li>&#9658; 2011 (${c.y2011})</li></ul></div>
-    <div class="rv bl-card"><h3>My Blog List</h3><ul>${each(c.blogroll, (b) => `<li>${siteA(b)}</li>`)}</ul></div>
+    <div class="rv bl-card"><h3>My Blog List</h3><ul>${each(c.blogroll, (b) => `<li>${siteA(linkTo('blog', b.topic, b.name))}</li>`)}</ul></div>
     <div class="rv bl-card"><h3>Labels</h3><p class="bl-labels">${c.labels.map(esc).join(', ')}</p></div>
     <div class="rv bl-card bl-song" data-song="${esc(c.song.title)}|${esc(c.song.artist)}"></div>
     <div class="rv bl-card">${counter(c.visitors, 'odo')}<br><small>visitors since 2010</small></div>
@@ -78,7 +78,7 @@ function blogMeta(k0, ctx) {
     archive: list(r.int(3, 6), (i) => ({ month: MONTHS[(fakeMonth() - i + 12) % 12], n: r.int(1, 9) })),
     y2011: r.int(4, 60),
     labels: r.sample(['random', 'life', 'school', 'food', 'pets', 'music', 'rants', 'funny', 'family', 'games', 'weekend', ctx.site.topic], 6),
-    blogroll: list(5, (i) => { const s = siteLink('blog', r.fork('br' + i), fanTopic(r.fork('t' + i))); return { name: s.name, url: s.url, topic: s.topic, kind: s.kind, site: s.site || '' }; }),
+    blogroll: list(5, (i) => { const s = siteLink('blog', r.fork('br' + i), fanTopic(r.fork('t' + i))); return { name: s.name, topic: s.topic }; }),
     song: { title: songTitle(r), artist: bandName(r) },
     visitors: r.big(100, 90000),
   };

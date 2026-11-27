@@ -4,6 +4,7 @@ import { HOSTS } from './url.js';
 import { LEX } from './lex.js';
 import { squash, slug, titleCase, plural } from './util.js';
 import { username, clanName, bandName } from './names.js';
+import { Rng } from './rng.js';
 
 const tld = (r) => r.pick(LEX.tld);
 
@@ -81,6 +82,14 @@ export function site(kind, r, topic) {
     case 'news': return { url: `http://${HOSTS.news}/`, name: 'StartBlaster News', topic: t, kind };
     default: return { url: `http://${HOSTS.portal}/`, name: 'StartBlaster!', topic: t, kind: 'portal' };
   }
+}
+
+// Deterministic link for a {name, topic} pair (used for AI-written lists too).
+export function linkTo(kind, topic, name) {
+  const r = new Rng(`link:${kind}:${topic}:${name}`);
+  const s = site(kind, r, topic || name);
+  if (name && (kind === 'fan' || kind === 'forum' || kind === 'blog')) { s.name = name; s.site = name; }
+  return s;
 }
 
 // Specific pages on the big sites.

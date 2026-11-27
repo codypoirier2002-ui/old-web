@@ -82,7 +82,7 @@ export const inbox = {
       const subject = kk.say(rr.pick(K.subj), { Topic });
       const from = kk.say(rr.pick(K.from), { Topic });
       const d = daysAgo(Math.floor(i * 1.7));
-      return { id: `${i + 1}-${slug(subject, 40)}`, from, subject, preview: '', date: i === 0 ? fmtTime(d) : fmtShort(d), unread: i < 6 };
+      return { from, subject, date: i === 0 ? fmtTime(d) : fmtShort(d), unread: i < 6 };
     });
     void k;
     return { folder, emails, used: r.int(2, 9), spam: r.int(120, 400) };
@@ -91,6 +91,7 @@ export const inbox = {
   render(c, ctx) {
     const read = new Set(kv.get('mailRead', []));
     const deleted = new Set(kv.get('mailDeleted', []));
+    c.emails.forEach((e, i) => { e.id = `${i + 1}-${slug(e.subject, 40)}`; });
     const folderName = titleCase(deslug(c.folder));
     const sent = (ctx.state && ctx.state.sent) || [];
     let rows;
